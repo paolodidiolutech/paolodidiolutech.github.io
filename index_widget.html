@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <title>Benvenuto</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+    }
+    #webchat {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+    }
+  </style>
+</head>
+<body>
+  <h1 id="welcome-title">Benvenuto</h1>
+  <p>Benvenuto nel nostro sito! Puoi interagire con il nostro assistente virtuale cliccando sull’icona in basso a destra.</p>
+
+  <!-- Elemento che ospita il widget -->
+  <div id="webchat"></div>
+
+  <!-- Script di Rasa WebChat -->
+  <script src="https://cdn.jsdelivr.net/npm/rasa-webchat@1.0.0/lib/index.js"></script>
+
+  <script>
+    // Legge l'id dalla URL: es. index.html?id=Paolo
+    const params = new URLSearchParams(window.location.search);
+    const userId = params.get('id') || "utente";
+
+    // Aggiorna il titolo della pagina
+    document.addEventListener("DOMContentLoaded", function () {
+      document.getElementById("welcome-title").textContent = `Benvenuto, ${userId}`;
+    });
+
+    // Inizializza il bot con l'ID utente
+    window.WebChat.default.init({
+      selector: "#webchat",
+      initPayload: `/greet`,
+      customData: { "user_id": userId }, // utile se gestito nel backend
+      socketUrl: "http://localhost:5005", // Cambialo con l'URL del tuo server Rasa
+      title: "Assistente virtuale",
+      subtitle: "Come posso aiutarti?",
+      showFullScreenButton: true,
+      params: {
+        storage: "session"
+      }
+    });
+  </script>
+</body>
+</html>

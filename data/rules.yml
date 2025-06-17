@@ -1,0 +1,29 @@
+version: "3.1"
+
+rules:
+
+- rule: Say goodbye anytime the user says goodbye
+  steps:
+  - intent: goodbye
+  - action: utter_goodbye
+
+- rule: Say 'I am a bot' anytime the user challenges
+  steps:
+  - intent: bot_challenge
+  - action: utter_iamabot
+
+- rule: Iniziare test1
+  steps:
+    - intent: test1
+    - action: utter_test1
+
+- rule: test_entità
+  steps:
+    - intent: test_entità
+    - action: utter_test_entità
+
+- rule: Usa LLaMA per domande generiche
+  steps:
+    - intent: ask_llama3
+    - action: action_ask_llama3
+
