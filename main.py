@@ -1,6 +1,4 @@
 from fastapi import FastAPI, HTTPException
-from fastapi.responses import FileResponse
-from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel
 import requests
 
@@ -30,11 +28,3 @@ def chat_with_bot(user_message: UserMessage):
         return {"responses": texts}
     except requests.exceptions.RequestException as e:
         raise HTTPException(status_code=500, detail=str(e))
-
-# Serve la cartella static
-app.mount("/static", StaticFiles(directory="static"), name="static")
-
-# Route per servire direttamente chat.html
-@app.get("/")
-async def get_chat():
-    return FileResponse("static/chat.html")
